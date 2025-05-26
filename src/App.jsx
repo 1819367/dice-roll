@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import Die from './components/Die' 
 import RollDice from './components/RollDice'
+import { nanoid } from 'nanoid'
 
 export default function App() {
 
@@ -13,7 +14,12 @@ export default function App() {
     const sides = ['one', 'two', 'three', 'four', 'five', 'six']
     return new Array(2) //creates a new array of length 2
       .fill(0) //fill it with zeros
-      .map(() => sides[Math.floor(Math.random() * sides.length)]) //map over the array
+      // .map(() => sides[Math.floor(Math.random() * sides.length)]) //map over the array
+      .map(() => ({
+        value: sides[Math.floor(Math.random() * sides.length)],
+        id: nanoid()
+      }))
+      
   }
   // console.log(generateAllNewDice()) //console log to call new dice array
 
@@ -22,8 +28,8 @@ export default function App() {
     setDice(generateAllNewDice())
   }
 
-  const diceElements = dice.map((die) => (
-    <Die value={die} />
+  const diceElements = dice.map((dieObj) => (
+    <Die key={dieObj.id} value={dieObj.value} />  //pass value and id props 
   ))
 
   return (
