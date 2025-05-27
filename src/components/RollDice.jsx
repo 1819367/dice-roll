@@ -3,7 +3,7 @@ export default function RollDice(props) {
         <button 
             className='btn-roll btn-roll_style'
             onClick={props.onClick}>
-                Roll Dice
+                {props.gameWon? "New Game" : "Roll Dice"}
         </button>
     )
 }

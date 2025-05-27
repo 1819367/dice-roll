@@ -9,6 +9,9 @@ export default function App() {
   //state to hold array of dice
   const [ dice, setDice ] = useState(generateAllNewDice());
 
+  //create a game won variable
+  const gameWon = dice.every(die => die.value === dice[0].value);
+
   //generate two dice with a random side name
   function generateAllNewDice() {
     const sides = ['one', 'two', 'three', 'four', 'five', 'six']
@@ -29,16 +32,29 @@ export default function App() {
   }
 
   const diceElements = dice.map((dieObj) => (
-    <Die key={dieObj.id} value={dieObj.value} />  //pass value and id props 
+    <Die 
+      key={dieObj.id} 
+      value={dieObj.value} 
+      gameWon={gameWon}/>   
   ))
 
   return (
     <main>
+      <div>
+        {gameWon && <p className="main-text_win">Congratulations! You won!<br></br>Press "New Game" to play again.</p>}
+      </div>
+      <div>
+        <h1 className="main-title">Dice Roll Game</h1>
+        <p className="main-text">Roll until both dice are the same.</p>
+      </div>
+  
       <div className='dice-container'>
         {diceElements}
       </div>
         <RollDice 
-          onClick={handleClick}/>
+          onClick={handleClick}
+          gameWon={gameWon} //pass gameWon as a prop
+          />
     </main>
   )
 }
