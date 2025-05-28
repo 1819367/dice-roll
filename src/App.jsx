@@ -12,8 +12,8 @@ library.add(faDiceOne, faDiceTwo, faDiceThree, faDiceFour, faDiceFive, faDiceSix
 
 export default function App() {
 
-  //state to hold array of dice
-  const [ dice, setDice ] = useState(generateAllNewDice());
+  //state to hold array of dice, lazy state initialization
+  const [ dice, setDice ] = useState(() => (generateAllNewDice()));
 
   //create a game won variable
   const gameWon = dice.every(die => die.value === dice[0].value);
