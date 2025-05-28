@@ -5,6 +5,7 @@ import RollDice from './components/RollDice'
 import { nanoid } from 'nanoid'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faDiceOne, faDiceTwo, faDiceThree, faDiceFour, faDiceFive, faDiceSix } from '@fortawesome/free-solid-svg-icons';
+import Confetti from 'react-confetti';
 
 library.add(faDiceOne, faDiceTwo, faDiceThree, faDiceFour, faDiceFive, faDiceSix);
 
@@ -42,9 +43,14 @@ export default function App() {
 
   return (
     <main>
-      <div>
-        {gameWon && <p className="main-text_win">Congratulations! You won!<br></br>Press "New Game" to play again.</p>}
-      </div>
+    { gameWon && (
+        <>
+        <Confetti /> 
+        <div>
+          <p className="main-text_win">Congratulations! You won!<br></br>Press "New Game" to play again.</p>
+        </div>
+         </>
+        )}
       <div>
         <h1 className="main-title">Dice Roll Game</h1>
         <p className="main-text">Roll until both dice are the same.</p>

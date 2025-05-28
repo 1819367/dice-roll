@@ -16,7 +16,7 @@ export default function Die(props) {
     return (
          <button  
             className={`btn-die ${props.gameWon ? "btn-die_accent" : "btn-die"}`}>
-                 <FontAwesomeIcon icon={['fas', iconName]} size="10x"/>
+                 <FontAwesomeIcon icon={['fa-solid', iconName]} size="10x"/>
         </button>
     )
 }
