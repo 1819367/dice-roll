@@ -15,6 +15,7 @@ export default function Die(props) {
 
     return (
          <button  
+            aria-label={`Die with a value of ${props.value}`}
             className={`btn-die ${props.gameWon ? "btn-die_accent" : "btn-die"}`}>
                  <FontAwesomeIcon icon={['fa-solid', iconName]} size="10x"/>
         </button>

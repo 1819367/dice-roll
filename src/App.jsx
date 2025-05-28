@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react';
 import './App.css'
 import Die from './components/Die' 
 import RollDice from './components/RollDice'
@@ -11,12 +11,20 @@ library.add(faDiceOne, faDiceTwo, faDiceThree, faDiceFour, faDiceFive, faDiceSix
 
 
 export default function App() {
+  const buttonRef = useRef(null);
 
   //state to hold array of dice, lazy state initialization
   const [ dice, setDice ] = useState(() => (generateAllNewDice()));
 
   //create a game won variable
   const gameWon = dice.every(die => die.value === dice[0].value);
+
+  //for accessibility improvements, button receives automatic keyboard focus
+  useEffect(() => {
+    if(gameWon) {
+      buttonRef.current.focus();
+    }
+  }, [gameWon])
 
   //generate two dice with a random side name
   function generateAllNewDice() {
@@ -46,7 +54,7 @@ export default function App() {
     { gameWon && (
         <>
         <Confetti /> 
-        <div>
+        <div aria-live='polite' className='sr-only'>
           <p className="main-text_win">Congratulations! You won!<br></br>Press "New Game" to play again.</p>
         </div>
          </>
@@ -62,6 +70,7 @@ export default function App() {
         <RollDice 
           onClick={handleClick}
           gameWon={gameWon} //pass gameWon as a prop
+          buttonRef={buttonRef} //pass buttonRef as a prop
           />
     </main>
   )
