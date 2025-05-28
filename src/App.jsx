@@ -3,6 +3,11 @@ import './App.css'
 import Die from './components/Die' 
 import RollDice from './components/RollDice'
 import { nanoid } from 'nanoid'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faDiceOne, faDiceTwo, faDiceThree, faDiceFour, faDiceFive, faDiceSix } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faDiceOne, faDiceTwo, faDiceThree, faDiceFour, faDiceFive, faDiceSix);
+
 
 export default function App() {
 
@@ -14,17 +19,14 @@ export default function App() {
 
   //generate two dice with a random side name
   function generateAllNewDice() {
-    const sides = ['one', 'two', 'three', 'four', 'five', 'six']
     return new Array(2) //creates a new array of length 2
       .fill(0) //fill it with zeros
-      // .map(() => sides[Math.floor(Math.random() * sides.length)]) //map over the array
       .map(() => ({
-        value: sides[Math.floor(Math.random() * sides.length)],
+        value: Math.ceil(Math.random() * 6), //update, value is 1-6
         id: nanoid()
       }))
       
   }
-  // console.log(generateAllNewDice()) //console log to call new dice array
 
   //generate new dice with button click
   function handleClick() {
