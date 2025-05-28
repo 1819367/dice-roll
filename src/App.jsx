@@ -15,6 +15,8 @@ export default function App() {
 
   //state to hold array of dice, lazy state initialization
   const [ dice, setDice ] = useState(() => (generateAllNewDice()));
+  //state for shaking animation
+  const [isShaking, setIsShaking] = useState(false);
 
   //create a game won variable
   const gameWon = dice.every(die => die.value === dice[0].value);
@@ -39,14 +41,17 @@ export default function App() {
 
   //generate new dice with button click
   function handleClick() {
-    setDice(generateAllNewDice())
+    setIsShaking(true);
+    setDice(generateAllNewDice());
+    setTimeout(() => setIsShaking(false), 600);
   }
 
   const diceElements = dice.map((dieObj) => (
     <Die 
       key={dieObj.id} 
       value={dieObj.value} 
-      gameWon={gameWon}/>   
+      gameWon={gameWon}
+      isShaking={isShaking}/>   
   ))
 
   return (
@@ -54,7 +59,7 @@ export default function App() {
     { gameWon && (
         <>
         <Confetti /> 
-        <div aria-live='polite' className='sr-only'>
+        <div aria-live='polite'>
           <p className="main-text_win">Congratulations! You won!<br></br>Press "New Game" to play again.</p>
         </div>
          </>
